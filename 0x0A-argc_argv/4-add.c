@@ -1,55 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
-#include <string.h>
 
 /**
- * check_num - check if a string contains only digits
- * @str: input string
+ * main - Prints the addition of positive numbers,
+ *        followed by a new line.
+ * @argc: The number of arguments passed to the program.
+ * @argv: An array of pointers to the arguments.
  *
- * Return: 1 if the string contains only digits, 0 otherwise
- */
-int check_num(char *str)
-{
-    unsigned int count = 0;
-
-    while (count < strlen(str))
-    {
-        if (!isdigit(str[count]))
-            return (0);
-
-        count++;
-    }
-    return (1);
-}
-
-/**
- * main - Print the sum of valid integers in the arguments
- * @argc: Count of arguments
- * @argv: Array of arguments
- *
- * Return: 0 on success, 1 on error
+ * Return: If one of the numbers contains symbols that are non-digits - 1.
+ *         Otherwise - 0.
  */
 int main(int argc, char *argv[])
 {
-    int count, str_to_int, sum = 0;
+	int num, digit, sum = 0;
 
-    count = 1;
-    while (count < argc)
-    {
-        if (check_num(argv[count]))
-        {
-            str_to_int = atoi(argv[count]);
-            sum += str_to_int;
-        }
-        else
-        {
-            printf("Error\n");
-            return (1);
-        }
-        count++;
-    }
+	for (num = 1; num < argc; num++)
+	{
+		for (digit = 0; argv[num][digit]; digit++)
+		{
+			if (argv[num][digit] < '0' || argv[num][digit] > '9')
+			{
+				printf("Error\n");
+				return (1);
+			}
+		}
 
-    printf("%d\n", sum);
-    return (0);
+		sum += atoi(argv[num]);
+	}
+
+	printf("%d\n", sum);
+
+	return (0);
 }
